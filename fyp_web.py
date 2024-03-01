@@ -18,11 +18,11 @@ def morphological_processing(image):
     gradient = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
     return gradient
 
-def canny(image, t1, t2):
-    umat_image = cv2.UMat(image)
-    canny_edges = cv2.Canny(umat_image, threshold1=t1, threshold2=t2)
-    canny_edges = np.asarray(canny_edges.get())
-    return canny_edges
+# def canny(image, t1, t2):
+#     umat_image = cv2.UMat(image)
+#     canny_edges = cv2.Canny(umat_image, threshold1=t1, threshold2=t2)
+#     canny_edges = np.asarray(canny_edges.get())
+#     return canny_edges
 
 def adjust_contrast(image, factor):
     enhancer = ImageEnhance.Contrast(image)
