@@ -1,9 +1,9 @@
 import streamlit as st
-from PIL import Image, ImageEnhance, ImageDraw
+from PIL import Image, ImageEnhance
 import cv2
 import numpy as np
 import base64
-from streamlit_drawable_canvas import st_canvas
+# from streamlit_drawable_canvas import st_canvas
 from streamlit_image_zoom import image_zoom  # Import the image_zoom function
 
 def morphological_processing_with_canny(image, threshold1, threshold2):
