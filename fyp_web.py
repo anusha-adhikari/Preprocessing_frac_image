@@ -78,21 +78,27 @@ def download_image(image):
 
 def main():
     st.set_page_config(layout='wide')
-    # with st.container():
-    #     st.image('logo-1.png')
 
-    st.title("Image Uploader, Modifier, and Downloader")
+    left_co, cent_co,last_co = st.columns(3)
+    with cent_co:
+        st.image("logo-1.png", width=200)
 
-    # with st.container():
-    #     st.image('logo-1.png')
+    st.title("Image :blue[Uploader], :blue[Modifier], and :blue[Downloader]")
+
+    st.caption('1. Upload an X-Ray image of bones in the sidebar.')
+    st.caption('2. Choose whether edge detection is required.')
+    st.caption('3. Edge detection : Adjust the two threshold values to obtain a clear outline.')
+    st.caption('4. No edge detection : Adjust the contrast and brightness values to obtain a clear outline.')
+    st.caption('5. Zoom factor : Adjust the value so that hovering over the modified image, zooms that part of the image (1.00 - no zoom; 5.00 - max zoom).')
+    st.caption('6. Bounding box can be made to appear by clicking the checkbox.')
+    st.caption('7. Adjust the X1, X2, Y1, Y2 values to place the bounding box on the desired location of the modified image.')
+    st.caption('8. Processing the bounding box gives the extracted region from inside the bounding box.')
+    st.caption('9. Modified image can be downloaded with/ without bounding box depending upon need.')
 
     col1, col2 = st.columns(2)
 
-    # logo = '/Users/macuser/Desktop/fyp training/logo-1.png'
-    # add_logo(logo)
-
-    with st.sidebar:
-        st.image("logo-1.png", width=180)
+    # with st.sidebar:
+    #     st.image("logo-1.png", width=180)
 
     uploaded_file = st.sidebar.file_uploader("Choose an image...", type=["jpg", "jpeg", "png", "JPG", "JPEG"])
 
@@ -103,7 +109,7 @@ def main():
     )
 
     if option is not None and option == "Choose either Yes or No":
-        st.write("Please choose a valid option - Yes or No")
+        st.write("Please choose a valid option - :blue[Yes] or :blue[No]")
         st.stop()
 
     st.sidebar.subheader("Parameters")
@@ -130,13 +136,13 @@ def main():
         bounding_box = ((x1, y1), (x2, y2))
 
     with col1:
-        st.subheader("Uploaded Image")
+        st.subheader(":blue[Uploaded Image]")
         if uploaded_file is not None:
             image = Image.open(uploaded_file)
             st.image(image, caption="Uploaded Image", use_column_width=True)
 
         with col2:
-            st.subheader("Modified Image")
+            st.subheader(":blue[Modified Image]")
             if uploaded_file is not None:
                 # Modify and display the image
                 if draw_bbox == True:
