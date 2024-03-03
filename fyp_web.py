@@ -3,7 +3,7 @@ from PIL import Image, ImageEnhance
 import cv2
 import numpy as np
 import base64
-# from streamlit_drawable_canvas import st_canvas
+from streamlit_extras.app_logo import add_logo
 from streamlit_image_zoom import image_zoom  # Import the image_zoom function
 
 def morphological_processing_with_canny(image, threshold1, threshold2):
@@ -79,9 +79,21 @@ def download_image(image):
 
 def main():
     st.set_page_config(layout='wide')
+    # with st.container():
+    #     st.image('logo-1.png')
+
     st.title("Image Uploader, Modifier, and Downloader")
 
+    # with st.container():
+    #     st.image('logo-1.png')
+
     col1, col2 = st.columns(2)
+
+    # logo = '/Users/macuser/Desktop/fyp training/logo-1.png'
+    # add_logo(logo)
+
+    with st.sidebar:
+        st.image("logo-1.png", width=180)
 
     uploaded_file = st.sidebar.file_uploader("Choose an image...", type=["jpg", "jpeg", "png", "JPG", "JPEG"])
 
@@ -138,21 +150,22 @@ def main():
 
                 
                         # Perform any additional processing here using bounding box coordinates
-                if st.sidebar.button("Process Bounding Box"):
-                    # Perform any additional processing here
-                    # For example, you can extract the region inside the bounding box
-                    min_y = min(y1, y2)
-                    max_y = max(y1, y2)
-                    min_x = min(x1, x2)
-                    max_x = max(x1, x2)
-                    region_of_interest = modified_image[min_y:max_y, min_x:max_x]
+                if draw_bbox == True:
+                    if st.sidebar.button("Process Bounding Box"):
+                        # Perform any additional processing here
+                        # For example, you can extract the region inside the bounding box
+                        min_y = min(y1, y2)
+                        max_y = max(y1, y2)
+                        min_x = min(x1, x2)
+                        max_x = max(x1, x2)
+                        region_of_interest = modified_image[min_y:max_y, min_x:max_x]
 
-                        # Display the extracted region
-                    st.sidebar.image(region_of_interest, caption="Extracted Region",
-                                            use_column_width=True)
-                    
-                            # Display the modified image with drawn bounding boxes
-                    st.sidebar.image(modified_image, caption="Modified Image", use_column_width=True)
+                            # Display the extracted region
+                        st.sidebar.image(region_of_interest, caption="Extracted Region",
+                                                use_column_width=True)
+                        
+                                # Display the modified image with drawn bounding boxes
+                        st.sidebar.image(modified_image, caption="Modified Image", use_column_width=True)
 
                 # Download button for modified image
                 download_button = st.button("Download Modified Image")
