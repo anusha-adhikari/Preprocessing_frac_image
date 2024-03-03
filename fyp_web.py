@@ -152,7 +152,7 @@ def main():
                                             use_column_width=True)
                     
                             # Display the modified image with drawn bounding boxes
-                    st.sidebar.image(modified_image, caption="Modified Image", use_column_width=True)
+                    # st.sidebar.image(modified_image, caption="Modified Image", use_column_width=True)
 
                 # Download button for modified image
                 download_button = st.button("Download Modified Image")
