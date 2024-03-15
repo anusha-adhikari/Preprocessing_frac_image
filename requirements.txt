@@ -9,7 +9,6 @@ tensorboard-data-server==0.7.1
 tensorflow==2.13.0
 tensorflow-estimator==2.13.0
 tensorflow-macos==2.13.0
-Keras-Preprocessing==1.1.2
 scikit-learn==0.23.2
 sklearn==0.0
 tensorboard-plugin-wit==1.7.0
