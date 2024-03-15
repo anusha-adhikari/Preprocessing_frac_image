@@ -4,6 +4,17 @@ import cv2
 import numpy as np
 import base64
 from streamlit_image_zoom import image_zoom  # Import the image_zoom function
+import requests
+from io import BytesIO
+from keras.models import load_model
+
+@st.cache(allow_output_mutation=True)
+def load_req_model(url):
+    model_url = url
+    response = requests.get(model_url)
+    model_file = BytesIO(response.content)
+    model = load_model(model_file)
+    return model
 
 def morphological_processing_with_canny(image, threshold1, threshold2):
     umat_image = cv2.UMat(image)
@@ -91,8 +102,8 @@ def main():
     st.caption('4. No edge detection : Adjust the contrast and brightness values to obtain a clear outline.')
     st.caption('5. Zoom factor : Adjust the value so that hovering over the modified image, zooms that part of the image (1.00 - no zoom; 5.00 - max zoom).')
     st.caption('6. Bounding box can be made to appear by clicking the checkbox.')
-    st.caption('7. Adjust the X1, X2, Y1, Y2 values to place the bounding box on the desired location of the modified image.')
-    st.caption('8. Processing the bounding box gives the extracted region from inside the bounding box.')
+    st.caption('7. Adjust the X1 & X2 -> horizontal adjustment, and Y1 & Y2 -> vertical adjustments in the placement of the bounding box on the desired location of the modified image.')
+    st.caption('8. Processing the bounding box gives the extracted region from inside the bounding box and classifies if the area in the bounding box has a fracture or not!')
     st.caption('9. Modified image can be downloaded with/ without bounding box depending upon need.')
 
     col1, col2 = st.columns(2)
@@ -124,7 +135,7 @@ def main():
     zoom_factor = st.sidebar.slider("Zoom Factor : ", min_value=1.0, max_value=5.0, value=2.0)
 
     # Initialize draw_bbox with default value
-    draw_bbox = st.sidebar.checkbox("Draw bounding box on the image", value=False)
+    draw_bbox = st.sidebar.checkbox("Draw bounding box on the image to point out where you feel pain", value=False)
     if draw_bbox == True:
         st.sidebar.subheader("Bounding Box Parameters")
         x1 = st.sidebar.slider("X1", min_value=0, max_value=1000, value=50)
@@ -156,7 +167,7 @@ def main():
                 
                         # Perform any additional processing here using bounding box coordinates
                 if draw_bbox == True:
-                    if st.sidebar.button("Process Bounding Box"):
+                    if st.sidebar.button("Process Bounding Box to find out if you have a fracture"):
                         # Perform any additional processing here
                         # For example, you can extract the region inside the bounding box
                         min_y = min(y1, y2)
@@ -168,8 +179,35 @@ def main():
                             # Display the extracted region
                         st.sidebar.image(region_of_interest, caption="Extracted Region",
                                                 use_column_width=True)
-                        
-                                # Display the modified image with drawn bounding boxes
+                        if option == "Yes":
+
+                            model = load_req_model('https://github.com/anusha-adhikari/Preprocessing_frac_image/raw/main/vgg19.h5')
+
+                            img = cv2.cvtColor(region_of_interest, cv2.COLOR_GRAY2RGB)
+                            img = cv2.resize(img, (100, 100))
+                            img = img/255
+                            img = np.reshape(img, ((1,)+img.shape))
+
+                            if model.predict(img) >= 0.5:
+                                st.error('Fracture detected')
+                            else:
+                                st.success('No fracture detected')
+
+                        if option == "No":
+
+                            model = load_req_model('https://github.com/anusha-adhikari/Preprocessing_frac_image/raw/main/vgg19_morph.h5')
+
+                            img = cv2.cvtColor(region_of_interest, cv2.COLOR_GRAY2RGB)
+                            img = cv2.resize(img, (100, 100))
+                            img = img/255
+                            img = np.reshape(img, ((1,)+img.shape))
+
+                            if model.predict(img) >= 0.5:
+                                st.error('Fracture detected')
+                            else:
+                                st.success('No fracture detected')
+                            
+                        # Display the modified image with drawn bounding boxes
                         st.sidebar.image(modified_image, caption="Modified Image", use_column_width=True)
 
                 # Download button for modified image
