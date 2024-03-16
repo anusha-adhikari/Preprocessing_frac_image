@@ -3,3 +3,4 @@ opencv-python
 Pillow==9.4.0
 streamlit==1.22.0
 streamlit_image_zoom==0.0.1
+keras
