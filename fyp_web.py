@@ -9,8 +9,11 @@ from io import BytesIO
 from keras.models import load_model
 
 @st.cache(allow_output_mutation=True)
-def load_req_model(url):
-    model_url = url
+def load_req_model(m):
+    if m == 1:
+        model_url = "vgg19.h5"
+    if m == 2:
+        model_url = "vgg19_morph.h5"
     response = requests.get(model_url)
     model_file = BytesIO(response.content)
     model = load_model(model_file)
@@ -182,7 +185,7 @@ def main():
                         if option == "Yes":
 
                             # model = load_req_model('https://github.com/anusha-adhikari/Preprocessing_frac_image/raw/main/vgg19.h5')
-                            model = load_model("vgg19.h5")
+                            model = load_model(1)
 
                             img = cv2.cvtColor(region_of_interest, cv2.COLOR_GRAY2RGB)
                             img = cv2.resize(img, (100, 100))
@@ -198,7 +201,7 @@ def main():
 
                             # model = load_req_model('https://github.com/anusha-adhikari/Preprocessing_frac_image/raw/main/vgg19_morph.h5')
 
-                            model = load_model("vgg19_morph.h5")
+                            model = load_model(2)
 
                             img = cv2.cvtColor(region_of_interest, cv2.COLOR_GRAY2RGB)
                             img = cv2.resize(img, (100, 100))
