@@ -3,7 +3,7 @@ opencv-python
 Pillow==9.4.0
 streamlit==1.22.0
 streamlit_image_zoom==0.0.1
-Keras==2.13.1
+keras==2.13.1
 tensorboard==2.13.0
 tensorboard-data-server==0.7.1
 tensorflow==2.13.0
