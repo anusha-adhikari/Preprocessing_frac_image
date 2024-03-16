@@ -132,7 +132,7 @@ def main():
         threshold2 = st.sidebar.slider("Brightness increase by adding : ", min_value=0, max_value=100, value=5)
 
     if option == "Yes":
-        threshold = st.sidebar.slider("Threshold 1 : ", min_value=0, max_value=100, value=12)
+        threshold = st.sidebar.slider("Threshold 1 : ", min_value=0, max_value=200, value=12)
         threshold2 = st.sidebar.slider("Threshold 2 : ", min_value=0, max_value=400, value=76)
 
     zoom_factor = st.sidebar.slider("Zoom Factor : ", min_value=1.0, max_value=5.0, value=2.0)
@@ -141,10 +141,10 @@ def main():
     draw_bbox = st.sidebar.checkbox("Draw bounding box on the image to point out where you feel pain", value=False)
     if draw_bbox == True:
         st.sidebar.subheader("Bounding Box Parameters")
-        x1 = st.sidebar.slider("X1", min_value=0, max_value=1000, value=50)
-        y1 = st.sidebar.slider("Y1", min_value=0, max_value=1000, value=50)
-        x2 = st.sidebar.slider("X2", min_value=0, max_value=1000, value=150)
-        y2 = st.sidebar.slider("Y2", min_value=0, max_value=1000, value=150)
+        x1 = st.sidebar.slider("X1", min_value=0, max_value=2000, value=50)
+        y1 = st.sidebar.slider("Y1", min_value=0, max_value=2000, value=50)
+        x2 = st.sidebar.slider("X2", min_value=0, max_value=2000, value=150)
+        y2 = st.sidebar.slider("Y2", min_value=0, max_value=2000, value=150)
 
         # Define the bounding box
         bounding_box = ((x1, y1), (x2, y2))
