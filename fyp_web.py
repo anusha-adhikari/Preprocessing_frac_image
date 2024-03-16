@@ -221,5 +221,5 @@ def main():
                 if download_button:
                     download_image(modified_image)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
