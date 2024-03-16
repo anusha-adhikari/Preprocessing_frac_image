@@ -185,7 +185,7 @@ def main():
                         if option == "Yes":
 
                             # model = load_req_model('https://github.com/anusha-adhikari/Preprocessing_frac_image/raw/main/vgg19.h5')
-                            model = load_model(1)
+                            model = load_req_model(1)
 
                             img = cv2.cvtColor(region_of_interest, cv2.COLOR_GRAY2RGB)
                             img = cv2.resize(img, (100, 100))
@@ -201,7 +201,7 @@ def main():
 
                             # model = load_req_model('https://github.com/anusha-adhikari/Preprocessing_frac_image/raw/main/vgg19_morph.h5')
 
-                            model = load_model(2)
+                            model = load_req_model(2)
 
                             img = cv2.cvtColor(region_of_interest, cv2.COLOR_GRAY2RGB)
                             img = cv2.resize(img, (100, 100))
