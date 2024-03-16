@@ -16,7 +16,7 @@ def load_req_model(m):
         model_url = "vgg19_morph.h5"
     # response = requests.get(model_url)
     # model_file = BytesIO(response.content)
-    model = load_model(model_url, compile = False)
+    model = load_model(model_url)
     return model
 
 def morphological_processing_with_canny(image, threshold1, threshold2):
