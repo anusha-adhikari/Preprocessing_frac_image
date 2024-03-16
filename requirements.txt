@@ -4,12 +4,7 @@ Pillow==9.4.0
 streamlit==1.22.0
 streamlit_image_zoom==0.0.1
 keras==2.13.1
-tensorboard==2.13.0
-tensorboard-data-server==0.7.1
 tensorflow==2.13.0
 tensorflow-estimator==2.13.0
 tensorflow-macos==2.13.0
 scikit-learn==0.23.2
-tensorboard-plugin-wit==1.7.0
-scipy==1.4.1
-h5py==2.10.0
