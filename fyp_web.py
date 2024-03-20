@@ -8,7 +8,7 @@ from streamlit_image_zoom import image_zoom  # Import the image_zoom function
 # from io import BytesIO
 from keras.models import load_model
 
-# @st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True)
 def load_req_model(m):
     if m == 1:
         model_url = "vgg19.h5"
